@@ -1,4 +1,4 @@
-\# Local Cloud Security Lab
+﻿# Local Cloud Security Lab
 
 
 
@@ -6,7 +6,7 @@ A beginner cloud-security project that simulates secure S3-compatible object sto
 
 
 
-\## Project Objective
+## Project Objective
 
 
 
@@ -18,27 +18,27 @@ The lab demonstrates:
 
 
 
-\- Authentication
+- Authentication
 
-\- Authorization
+- Authorization
 
-\- Least-privilege access
+- Least-privilege access
 
-\- S3-compatible object storage
+- S3-compatible object storage
 
-\- Role-based permissions
+- Role-based permissions
 
-\- Audit logging
+- Audit logging
 
-\- HTTPS/TLS
+- HTTPS/TLS
 
-\- Encryption at rest
+- Encryption at rest
 
-\- Encryption in transit
+- Encryption in transit
 
 
 
-\## Architecture
+## Architecture
 
 
 
@@ -46,39 +46,39 @@ The lab demonstrates:
 
 AWS CLI
 
-&#x20;  |
+   |
 
-&#x20;  | HTTPS / TLS
+   | HTTPS / TLS
 
-&#x20;  v
+   v
 
 Nginx Audit Proxy
 
-&#x20;  |
+   |
 
-&#x20;  | Request Logging
+   | Request Logging
 
-&#x20;  v
+   v
 
 SeaweedFS S3 Storage
 
-&#x20;  |
+   |
 
-&#x20;  +----------------------+
+   +----------------------+
 
-&#x20;  |                      |
+   |                      |
 
-&#x20;  v                      v
+   v                      v
 
-&#x20;Admin                 Student
+ Admin                 Student
 
-&#x20;Read ✅               Read ✅
+ Read âœ…               Read âœ…
 
-&#x20;Write ✅              List ✅
+ Write âœ…              List âœ…
 
-&#x20;Delete ✅             Write ❌
+ Delete âœ…             Write âŒ
 
-&#x20;                      Delete ❌
+                       Delete âŒ
 
 ```
 
@@ -92,17 +92,17 @@ Sensitive files are encrypted before storage:
 
 Plaintext File
 
-&#x20;    |
+     |
 
-&#x20;    | AES-256 Encryption
+     | AES-256 Encryption
 
-&#x20;    v
+     v
 
 Encrypted Object
 
-&#x20;    |
+     |
 
-&#x20;    v
+     v
 
 S3-Compatible Storage
 
@@ -110,33 +110,33 @@ S3-Compatible Storage
 
 
 
-\## Technologies Used
+## Technologies Used
 
 
 
-\- Docker Desktop
+- Docker Desktop
 
-\- SeaweedFS
+- SeaweedFS
 
-\- AWS CLI
+- AWS CLI
 
-\- Nginx
+- Nginx
 
-\- OpenSSL
+- OpenSSL
 
-\- PowerShell
+- PowerShell
 
-\- Git
+- Git
 
-\- GitHub
-
-
-
-\## Access-Control Model
+- GitHub
 
 
 
-\### Admin
+## Access-Control Model
+
+
+
+### Admin
 
 
 
@@ -144,19 +144,19 @@ The admin user can:
 
 
 
-\- List objects
+- List objects
 
-\- Read objects
+- Read objects
 
-\- Upload objects
+- Upload objects
 
-\- Delete objects
+- Delete objects
 
-\- Perform administrative operations
+- Perform administrative operations
 
 
 
-\### Student
+### Student
 
 
 
@@ -168,9 +168,9 @@ The student can:
 
 
 
-\- List objects
+- List objects
 
-\- Download/read objects
+- Download/read objects
 
 
 
@@ -178,9 +178,9 @@ The student cannot:
 
 
 
-\- Upload objects
+- Upload objects
 
-\- Delete objects
+- Delete objects
 
 
 
@@ -196,7 +196,7 @@ AccessDenied
 
 
 
-\## Authentication Testing
+## Authentication Testing
 
 
 
@@ -220,7 +220,7 @@ This demonstrates that the S3-compatible endpoint requires valid credentials bef
 
 
 
-\## Audit Logging
+## Audit Logging
 
 
 
@@ -256,7 +256,7 @@ This demonstrates how cloud environments can record successful and failed access
 
 
 
-\## Encryption in Transit
+## Encryption in Transit
 
 
 
@@ -280,7 +280,7 @@ TLS protects data while it travels between the client and the storage service.
 
 
 
-\## Encryption at Rest
+## Encryption at Rest
 
 
 
@@ -296,17 +296,17 @@ Example flow:
 
 Plaintext File
 
-&#x20;    |
+     |
 
-&#x20;    | AES-256
+     | AES-256
 
-&#x20;    v
+     v
 
 Encrypted File
 
-&#x20;    |
+     |
 
-&#x20;    v
+     v
 
 S3-Compatible Storage
 
@@ -318,7 +318,7 @@ The encrypted object cannot be meaningfully read without the correct decryption 
 
 
 
-\## Security Concepts Learned
+## Security Concepts Learned
 
 
 
@@ -326,29 +326,29 @@ This project demonstrates several core cloud-security principles:
 
 
 
-1\. \*\*Authentication\*\* — verifying user identity.
+1. **Authentication** â€” verifying user identity.
 
-2\. \*\*Authorization\*\* — controlling what authenticated users can do.
+2. **Authorization** â€” controlling what authenticated users can do.
 
-3\. \*\*Least Privilege\*\* — granting only the permissions required for a task.
+3. **Least Privilege** â€” granting only the permissions required for a task.
 
-4\. \*\*Encryption in Transit\*\* — protecting data while it moves over a network using TLS.
+4. **Encryption in Transit** â€” protecting data while it moves over a network using TLS.
 
-5\. \*\*Encryption at Rest\*\* — protecting stored data using encryption.
+5. **Encryption at Rest** â€” protecting stored data using encryption.
 
-6\. \*\*Audit Logging\*\* — recording successful and failed access attempts.
+6. **Audit Logging** â€” recording successful and failed access attempts.
 
-7\. \*\*Credential Validation\*\* — rejecting unknown access keys.
+7. **Credential Validation** â€” rejecting unknown access keys.
 
-8\. \*\*Access Control Testing\*\* — verifying that security policies behave as expected.
-
-
-
-\## Example Security Tests
+8. **Access Control Testing** â€” verifying that security policies behave as expected.
 
 
 
-\### Student Upload Test
+## Example Security Tests
+
+
+
+### Student Upload Test
 
 
 
@@ -376,7 +376,7 @@ Result:
 
 
 
-\### Student Download Test
+### Student Download Test
 
 
 
@@ -404,7 +404,7 @@ Result:
 
 
 
-\### Invalid Credential Test
+### Invalid Credential Test
 
 
 
@@ -424,11 +424,11 @@ InvalidAccessKeyId
 
 
 
-\## Security Test Evidence
+## Security Test Evidence
 
 
 
-\### Student Upload Denied
+### Student Upload Denied
 
 
 
@@ -436,11 +436,11 @@ The student account has read-only access and cannot upload new objects.
 
 
 
-!\[Student Upload Denied](screenshots/student-upload-denied.png)
+![Student Upload Denied](screenshots/student-upload-denied.png)
 
 
 
-\### Student Delete Denied
+### Student Delete Denied
 
 
 
@@ -448,11 +448,11 @@ The student account cannot delete existing objects.
 
 
 
-!\[Student Delete Denied](screenshots/student-delete-denied.png)
+![Student Delete Denied](screenshots/student-delete-denied.png)
 
 
 
-\### Invalid Credentials Rejected
+### Invalid Credentials Rejected
 
 
 
@@ -460,11 +460,11 @@ Unknown credentials are rejected by the S3-compatible endpoint.
 
 
 
-!\[Invalid Credentials](screenshots/invalid-credentials.png)
+![Invalid Credentials](screenshots/invalid-credentials.png)
 
 
 
-\### Audit Logging
+### Audit Logging
 
 
 
@@ -472,17 +472,17 @@ The Nginx audit proxy records both successful and denied requests.
 
 
 
-\- `200` = successful request
+- `200` = successful request
 
-\- `403` = forbidden request
-
-
-
-!\[Audit Logs](screenshots/audit-logs-200-403.png)
+- `403` = forbidden request
 
 
 
-\### HTTPS / TLS Access
+![Audit Logs](screenshots/audit-logs-200-403.png)
+
+
+
+### HTTPS / TLS Access
 
 
 
@@ -490,11 +490,11 @@ AWS CLI successfully communicates with the storage endpoint over HTTPS.
 
 
 
-!\[HTTPS TLS Access](screenshots/https-tls-access.png)
+![HTTPS TLS Access](screenshots/https-tls-access.png)
 
 
 
-\### Encryption and Decryption
+### Encryption and Decryption
 
 
 
@@ -502,11 +502,11 @@ Sensitive data is encrypted with AES-256 before storage and successfully decrypt
 
 
 
-!\[Encryption Decryption](screenshots/encryption-decryption-success.png)
+![Encryption Decryption](screenshots/encryption-decryption-success.png)
 
 
 
-\## Security Results Summary
+## Security Results Summary
 
 
 
@@ -514,33 +514,33 @@ Sensitive data is encrypted with AES-256 before storage and successfully decrypt
 
 |---|---|---|
 
-| Admin lists objects | Allowed | Passed ✅ |
+| Admin lists objects | Allowed | Passed âœ… |
 
-| Admin uploads objects | Allowed | Passed ✅ |
+| Admin uploads objects | Allowed | Passed âœ… |
 
-| Student lists objects | Allowed | Passed ✅ |
+| Student lists objects | Allowed | Passed âœ… |
 
-| Student downloads objects | Allowed | Passed ✅ |
+| Student downloads objects | Allowed | Passed âœ… |
 
-| Student uploads objects | Denied | Passed ✅ |
+| Student uploads objects | Denied | Passed âœ… |
 
-| Student deletes objects | Denied | Passed ✅ |
+| Student deletes objects | Denied | Passed âœ… |
 
-| Invalid credentials | Denied | Passed ✅ |
+| Invalid credentials | Denied | Passed âœ… |
 
-| HTTPS access | Allowed | Passed ✅ |
+| HTTPS access | Allowed | Passed âœ… |
 
-| Successful request logging | HTTP 200 | Passed ✅ |
+| Successful request logging | HTTP 200 | Passed âœ… |
 
-| Unauthorized request logging | HTTP 403 | Passed ✅ |
+| Unauthorized request logging | HTTP 403 | Passed âœ… |
 
-| AES-256 encryption | Encrypted content unreadable | Passed ✅ |
+| AES-256 encryption | Encrypted content unreadable | Passed âœ… |
 
-| AES-256 decryption | Original content restored | Passed ✅ |
+| AES-256 decryption | Original content restored | Passed âœ… |
 
 
 
-\## What I Learned
+## What I Learned
 
 
 
@@ -548,33 +548,33 @@ Through this project, I learned:
 
 
 
-\- How S3-compatible object storage works
+- How S3-compatible object storage works
 
-\- How AWS CLI interacts with S3-style services
+- How AWS CLI interacts with S3-style services
 
-\- The difference between authentication and authorization
+- The difference between authentication and authorization
 
-\- How least-privilege permissions reduce security risk
+- How least-privilege permissions reduce security risk
 
-\- How read-only access can be enforced
+- How read-only access can be enforced
 
-\- How invalid credentials are rejected
+- How invalid credentials are rejected
 
-\- How reverse proxies can provide audit logging
+- How reverse proxies can provide audit logging
 
-\- How HTTP status codes help with security monitoring
+- How HTTP status codes help with security monitoring
 
-\- How TLS protects data in transit
+- How TLS protects data in transit
 
-\- How AES-256 protects sensitive data at rest
+- How AES-256 protects sensitive data at rest
 
-\- Why credentials and private keys should not be committed to GitHub
+- Why credentials and private keys should not be committed to GitHub
 
-\- How to use Git and GitHub to document and publish a security project
+- How to use Git and GitHub to document and publish a security project
 
 
 
-\## Project Structure
+## Project Structure
 
 
 
@@ -582,41 +582,41 @@ Through this project, I learned:
 
 local-cloud-security-lab/
 
-│
+â”‚
 
-├── README.md
+â”œâ”€â”€ README.md
 
-├── .gitignore
+â”œâ”€â”€ .gitignore
 
-│
+â”‚
 
-├── config/
+â”œâ”€â”€ config/
 
-│   ├── nginx.conf
+â”‚   â”œâ”€â”€ nginx.conf
 
-│   └── s3.example.json
+â”‚   â””â”€â”€ s3.example.json
 
-│
+â”‚
 
-└── screenshots/
+â””â”€â”€ screenshots/
 
-&#x20;   ├── student-upload-denied.png
+    â”œâ”€â”€ student-upload-denied.png
 
-&#x20;   ├── student-delete-denied.png
+    â”œâ”€â”€ student-delete-denied.png
 
-&#x20;   ├── invalid-credentials.png
+    â”œâ”€â”€ invalid-credentials.png
 
-&#x20;   ├── audit-logs-200-403.png
+    â”œâ”€â”€ audit-logs-200-403.png
 
-&#x20;   ├── https-tls-access.png
+    â”œâ”€â”€ https-tls-access.png
 
-&#x20;   └── encryption-decryption-success.png
+    â””â”€â”€ encryption-decryption-success.png
 
 ```
 
 
 
-\## Important Security Note
+## Important Security Note
 
 
 
@@ -628,7 +628,7 @@ Example configuration files use placeholder credentials instead of real secrets.
 
 
 
-\## Disclaimer
+## Disclaimer
 
 
 
@@ -637,4 +637,7 @@ This project is designed for local learning and demonstration purposes.
 
 
 Production cloud environments should use managed secret storage, trusted certificate authorities, centralized logging, key-management systems, secure networking, monitoring, and properly hardened infrastructure.
+
+
+
 
