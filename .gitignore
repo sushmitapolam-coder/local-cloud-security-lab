@@ -1,0 +1,9 @@
+s3.json
+*.key
+*.crt
+*.enc
+confidential.txt
+decrypted-confidential.txt
+student-download.txt
+audit-*.txt
+*-denied.txt
