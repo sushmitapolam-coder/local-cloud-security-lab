@@ -1,168 +1,428 @@
-# Local Cloud Security Lab
+\# Local Cloud Security Lab
 
-A beginner cloud-security project that simulates secure S3-compatible object storage locally using Docker, SeaweedFS, AWS CLI, and Nginx.
 
-## Project Objective
+
+A beginner cloud-security project that simulates secure S3-compatible object storage locally using Docker, SeaweedFS, AWS CLI, Nginx, and OpenSSL.
+
+
+
+\## Project Objective
+
+
 
 The goal of this project is to understand fundamental cloud-security concepts without requiring a paid cloud account.
 
+
+
 The lab demonstrates:
 
-* Authentication
-* Authorization
-* Least-privilege access
-* S3-compatible object storage
-* Role-based permissions
-* Audit logging
-* HTTPS/TLS
-* Encryption at rest
-* Encryption in transit
 
-## Architecture
+
+\- Authentication
+
+\- Authorization
+
+\- Least-privilege access
+
+\- S3-compatible object storage
+
+\- Role-based permissions
+
+\- Audit logging
+
+\- HTTPS/TLS
+
+\- Encryption at rest
+
+\- Encryption in transit
+
+
+
+\## Architecture
+
+
+
+```text
 
 AWS CLI
-|
-| HTTPS / TLS
-v
+
+&#x20;  |
+
+&#x20;  | HTTPS / TLS
+
+&#x20;  v
+
 Nginx Audit Proxy
-|
-| Request Logging
-v
+
+&#x20;  |
+
+&#x20;  | Request Logging
+
+&#x20;  v
+
 SeaweedFS S3 Storage
-|
-+---------------------+
-|                     |
-v                     v
-Admin                Student
-Read                  Read
-Write                 List
-Delete                No Write
-No Delete
 
-## Technologies Used
+&#x20;  |
 
-* Docker Desktop
-* SeaweedFS
-* AWS CLI
-* Nginx
-* OpenSSL
-* PowerShell
+&#x20;  +----------------------+
 
-## Access-Control Model
+&#x20;  |                      |
 
-### Admin
+&#x20;  v                      v
+
+&#x20;Admin                 Student
+
+&#x20;Read ✅               Read ✅
+
+&#x20;Write ✅              List ✅
+
+&#x20;Delete ✅             Write ❌
+
+&#x20;                      Delete ❌
+
+```
+
+
+
+Sensitive files are encrypted before storage:
+
+
+
+```text
+
+Plaintext File
+
+&#x20;    |
+
+&#x20;    | AES-256 Encryption
+
+&#x20;    v
+
+Encrypted Object
+
+&#x20;    |
+
+&#x20;    v
+
+S3-Compatible Storage
+
+```
+
+
+
+\## Technologies Used
+
+
+
+\- Docker Desktop
+
+\- SeaweedFS
+
+\- AWS CLI
+
+\- Nginx
+
+\- OpenSSL
+
+\- PowerShell
+
+\- Git
+
+\- GitHub
+
+
+
+\## Access-Control Model
+
+
+
+\### Admin
+
+
 
 The admin user can:
 
-* List objects
-* Read objects
-* Upload objects
-* Delete objects
-* Perform administrative operations
 
-### Student
+
+\- List objects
+
+\- Read objects
+
+\- Upload objects
+
+\- Delete objects
+
+\- Perform administrative operations
+
+
+
+\### Student
+
+
 
 The student user follows the principle of least privilege.
 
+
+
 The student can:
 
-* List objects
-* Download/read objects
+
+
+\- List objects
+
+\- Download/read objects
+
+
 
 The student cannot:
 
-* Upload objects
-* Delete objects
 
-Unauthorized write attempts return:
+
+\- Upload objects
+
+\- Delete objects
+
+
+
+Unauthorized operations return:
+
+
+
+```text
 
 AccessDenied
 
-## Authentication Testing
+```
+
+
+
+\## Authentication Testing
+
+
 
 The lab verifies that invalid AWS-style credentials are rejected.
 
+
+
 Example:
+
+
+
+```text
 
 InvalidAccessKeyId
 
-This demonstrates that the S3 endpoint requires valid credentials.
+```
 
-## Audit Logging
 
-Nginx is used as a reverse proxy in front of the S3 service.
 
-Successful requests are logged with HTTP status codes such as:
+This demonstrates that the S3-compatible endpoint requires valid credentials before allowing access.
+
+
+
+\## Audit Logging
+
+
+
+Nginx is used as a reverse proxy in front of the S3-compatible storage service.
+
+
+
+Successful requests are recorded with HTTP status codes such as:
+
+
+
+```text
 
 GET -> 200
 
-Unauthorized operations are logged as:
+```
+
+
+
+Unauthorized operations are recorded as:
+
+
+
+```text
 
 PUT -> 403
 
-This demonstrates how cloud environments can record successful and failed access attempts.
+```
 
-## Encryption in Transit
+
+
+This demonstrates how cloud environments can record successful and failed access attempts for security monitoring and investigation.
+
+
+
+\## Encryption in Transit
+
+
 
 The Nginx proxy uses HTTPS with TLS.
 
+
+
 The AWS CLI communicates with the storage service through:
+
+
+
+```text
 
 https://localhost:8443
 
-This protects data while it travels between the client and storage service.
+```
 
-## Encryption at Rest
+
+
+TLS protects data while it travels between the client and the storage service.
+
+
+
+\## Encryption at Rest
+
+
 
 Sensitive files are encrypted using AES-256 before being uploaded.
 
-Flow:
 
-Plaintext file
-|
-AES-256 Encryption
-|
-Encrypted object
-|
-S3-compatible storage
 
-The encrypted object cannot be meaningfully read without the correct encryption secret.
+Example flow:
 
-## Security Concepts Learned
+
+
+```text
+
+Plaintext File
+
+&#x20;    |
+
+&#x20;    | AES-256
+
+&#x20;    v
+
+Encrypted File
+
+&#x20;    |
+
+&#x20;    v
+
+S3-Compatible Storage
+
+```
+
+
+
+The encrypted object cannot be meaningfully read without the correct decryption secret.
+
+
+
+\## Security Concepts Learned
+
+
 
 This project demonstrates several core cloud-security principles:
 
-1. Authentication - verifying user identity.
-2. Authorization - controlling what authenticated users can do.
-3. Least Privilege - granting only required permissions.
-4. Encryption in Transit - protecting data using TLS.
-5. Encryption at Rest - protecting stored data with encryption.
-6. Audit Logging - recording successful and failed access attempts.
-7. Credential Validation - rejecting unknown access keys.
 
-## Example Security Test
 
-Student attempts to upload an object:
+1\. \*\*Authentication\*\* — verifying user identity.
+
+2\. \*\*Authorization\*\* — controlling what authenticated users can do.
+
+3\. \*\*Least Privilege\*\* — granting only the permissions required for a task.
+
+4\. \*\*Encryption in Transit\*\* — protecting data while it moves over a network using TLS.
+
+5\. \*\*Encryption at Rest\*\* — protecting stored data using encryption.
+
+6\. \*\*Audit Logging\*\* — recording successful and failed access attempts.
+
+7\. \*\*Credential Validation\*\* — rejecting unknown access keys.
+
+8\. \*\*Access Control Testing\*\* — verifying that security policies behave as expected.
+
+
+
+\## Example Security Tests
+
+
+
+\### Student Upload Test
+
+
+
+The student attempts to upload an object:
+
+
+
+```text
 
 PUT /student-secure-files/file.txt
 
+```
+
+
+
 Result:
+
+
+
+```text
 
 403 Access Denied
 
-Student downloads an existing object:
+```
+
+
+
+\### Student Download Test
+
+
+
+The student downloads an existing object:
+
+
+
+```text
 
 GET /student-secure-files/file.txt
 
+```
+
+
+
 Result:
+
+
+
+```text
 
 200 OK
 
-## Disclaimer
+```
 
-This project is designed for local learning and demonstration purposes.
 
-Production cloud environments should use managed secret storage, certificate authorities, centralized logging, key-management systems, and properly secured infrastructure.
+
+\### Invalid Credential Test
+
+
+
+A request is made using an unknown access key.
+
+
+
+Result:
+
+
+
+```text
+
+InvalidAccessKeyId
+
+```
+
+
 
 \## Security Test Evidence
 
@@ -184,7 +444,7 @@ The student account has read-only access and cannot upload new objects.
 
 
 
-The student account cannot delete objects.
+The student account cannot delete existing objects.
 
 
 
@@ -208,7 +468,7 @@ Unknown credentials are rejected by the S3-compatible endpoint.
 
 
 
-The Nginx proxy records successful and denied requests.
+The Nginx audit proxy records both successful and denied requests.
 
 
 
@@ -222,11 +482,11 @@ The Nginx proxy records successful and denied requests.
 
 
 
-\### HTTPS / TLS
+\### HTTPS / TLS Access
 
 
 
-AWS CLI communicates with the storage endpoint over HTTPS.
+AWS CLI successfully communicates with the storage endpoint over HTTPS.
 
 
 
@@ -238,9 +498,143 @@ AWS CLI communicates with the storage endpoint over HTTPS.
 
 
 
-Sensitive data is encrypted using AES-256 before storage and can only be decrypted using the correct secret.
+Sensitive data is encrypted with AES-256 before storage and successfully decrypted using the correct secret.
 
 
 
 !\[Encryption Decryption](screenshots/encryption-decryption-success.png)
+
+
+
+\## Security Results Summary
+
+
+
+| Test | Expected Result | Result |
+
+|---|---|---|
+
+| Admin lists objects | Allowed | Passed ✅ |
+
+| Admin uploads objects | Allowed | Passed ✅ |
+
+| Student lists objects | Allowed | Passed ✅ |
+
+| Student downloads objects | Allowed | Passed ✅ |
+
+| Student uploads objects | Denied | Passed ✅ |
+
+| Student deletes objects | Denied | Passed ✅ |
+
+| Invalid credentials | Denied | Passed ✅ |
+
+| HTTPS access | Allowed | Passed ✅ |
+
+| Successful request logging | HTTP 200 | Passed ✅ |
+
+| Unauthorized request logging | HTTP 403 | Passed ✅ |
+
+| AES-256 encryption | Encrypted content unreadable | Passed ✅ |
+
+| AES-256 decryption | Original content restored | Passed ✅ |
+
+
+
+\## What I Learned
+
+
+
+Through this project, I learned:
+
+
+
+\- How S3-compatible object storage works
+
+\- How AWS CLI interacts with S3-style services
+
+\- The difference between authentication and authorization
+
+\- How least-privilege permissions reduce security risk
+
+\- How read-only access can be enforced
+
+\- How invalid credentials are rejected
+
+\- How reverse proxies can provide audit logging
+
+\- How HTTP status codes help with security monitoring
+
+\- How TLS protects data in transit
+
+\- How AES-256 protects sensitive data at rest
+
+\- Why credentials and private keys should not be committed to GitHub
+
+\- How to use Git and GitHub to document and publish a security project
+
+
+
+\## Project Structure
+
+
+
+```text
+
+local-cloud-security-lab/
+
+│
+
+├── README.md
+
+├── .gitignore
+
+│
+
+├── config/
+
+│   ├── nginx.conf
+
+│   └── s3.example.json
+
+│
+
+└── screenshots/
+
+&#x20;   ├── student-upload-denied.png
+
+&#x20;   ├── student-delete-denied.png
+
+&#x20;   ├── invalid-credentials.png
+
+&#x20;   ├── audit-logs-200-403.png
+
+&#x20;   ├── https-tls-access.png
+
+&#x20;   └── encryption-decryption-success.png
+
+```
+
+
+
+\## Important Security Note
+
+
+
+Real passwords, private TLS keys, encryption secrets, and sensitive files are not stored in this repository.
+
+
+
+Example configuration files use placeholder credentials instead of real secrets.
+
+
+
+\## Disclaimer
+
+
+
+This project is designed for local learning and demonstration purposes.
+
+
+
+Production cloud environments should use managed secret storage, trusted certificate authorities, centralized logging, key-management systems, secure networking, monitoring, and properly hardened infrastructure.
 
