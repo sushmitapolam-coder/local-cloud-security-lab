@@ -8,45 +8,45 @@ The goal of this project is to understand fundamental cloud-security concepts wi
 
 The lab demonstrates:
 
-- Authentication
-- Authorization
-- Least-privilege access
-- S3-compatible object storage
-- Role-based permissions
-- Audit logging
-- HTTPS/TLS
-- Encryption at rest
-- Encryption in transit
+* Authentication
+* Authorization
+* Least-privilege access
+* S3-compatible object storage
+* Role-based permissions
+* Audit logging
+* HTTPS/TLS
+* Encryption at rest
+* Encryption in transit
 
 ## Architecture
 
 AWS CLI
-   |
-   | HTTPS / TLS
-   v
+|
+| HTTPS / TLS
+v
 Nginx Audit Proxy
-   |
-   | Request Logging
-   v
+|
+| Request Logging
+v
 SeaweedFS S3 Storage
-   |
-   +---------------------+
-   |                     |
-   v                     v
- Admin                Student
- Read                  Read
- Write                 List
- Delete                No Write
-                       No Delete
+|
++---------------------+
+|                     |
+v                     v
+Admin                Student
+Read                  Read
+Write                 List
+Delete                No Write
+No Delete
 
 ## Technologies Used
 
-- Docker Desktop
-- SeaweedFS
-- AWS CLI
-- Nginx
-- OpenSSL
-- PowerShell
+* Docker Desktop
+* SeaweedFS
+* AWS CLI
+* Nginx
+* OpenSSL
+* PowerShell
 
 ## Access-Control Model
 
@@ -54,11 +54,11 @@ SeaweedFS S3 Storage
 
 The admin user can:
 
-- List objects
-- Read objects
-- Upload objects
-- Delete objects
-- Perform administrative operations
+* List objects
+* Read objects
+* Upload objects
+* Delete objects
+* Perform administrative operations
 
 ### Student
 
@@ -66,13 +66,13 @@ The student user follows the principle of least privilege.
 
 The student can:
 
-- List objects
-- Download/read objects
+* List objects
+* Download/read objects
 
 The student cannot:
 
-- Upload objects
-- Delete objects
+* Upload objects
+* Delete objects
 
 Unauthorized write attempts return:
 
@@ -119,11 +119,11 @@ Sensitive files are encrypted using AES-256 before being uploaded.
 Flow:
 
 Plaintext file
-   |
+|
 AES-256 Encryption
-   |
+|
 Encrypted object
-   |
+|
 S3-compatible storage
 
 The encrypted object cannot be meaningfully read without the correct encryption secret.
@@ -163,3 +163,84 @@ Result:
 This project is designed for local learning and demonstration purposes.
 
 Production cloud environments should use managed secret storage, certificate authorities, centralized logging, key-management systems, and properly secured infrastructure.
+
+\## Security Test Evidence
+
+
+
+\### Student Upload Denied
+
+
+
+The student account has read-only access and cannot upload new objects.
+
+
+
+!\[Student Upload Denied](screenshots/student-upload-denied.png)
+
+
+
+\### Student Delete Denied
+
+
+
+The student account cannot delete objects.
+
+
+
+!\[Student Delete Denied](screenshots/student-delete-denied.png)
+
+
+
+\### Invalid Credentials Rejected
+
+
+
+Unknown credentials are rejected by the S3-compatible endpoint.
+
+
+
+!\[Invalid Credentials](screenshots/invalid-credentials.png)
+
+
+
+\### Audit Logging
+
+
+
+The Nginx proxy records successful and denied requests.
+
+
+
+\- `200` = successful request
+
+\- `403` = forbidden request
+
+
+
+!\[Audit Logs](screenshots/audit-logs-200-403.png)
+
+
+
+\### HTTPS / TLS
+
+
+
+AWS CLI communicates with the storage endpoint over HTTPS.
+
+
+
+!\[HTTPS TLS Access](screenshots/https-tls-access.png)
+
+
+
+\### Encryption and Decryption
+
+
+
+Sensitive data is encrypted using AES-256 before storage and can only be decrypted using the correct secret.
+
+
+
+!\[Encryption Decryption](screenshots/encryption-decryption-success.png)
+
